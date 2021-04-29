@@ -14,7 +14,7 @@ import (
 
 	"bufio"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 // def get_editor do

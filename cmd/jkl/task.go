@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 type TaskCmd struct {

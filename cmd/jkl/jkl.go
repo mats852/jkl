@@ -9,7 +9,7 @@ import (
 
 	"strings"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 var verbose = flag.Bool("v", false, "Output debug information about jkl")

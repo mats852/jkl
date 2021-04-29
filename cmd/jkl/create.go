@@ -10,7 +10,7 @@ import (
 	"strings"
 	"text/template"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 type CreateCmd struct {

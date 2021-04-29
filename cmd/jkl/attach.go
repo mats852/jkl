@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 type AttachCmd struct {

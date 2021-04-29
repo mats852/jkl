@@ -7,7 +7,7 @@ import (
 
 	"text/template"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 type EditCmd struct {

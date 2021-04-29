@@ -4,7 +4,7 @@ import (
 	"errors"
 	"flag"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 type LinkCmd struct {

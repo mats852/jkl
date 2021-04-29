@@ -9,8 +9,8 @@ import (
 
 	"fmt"
 
+	"github.com/otremblay/jkl"
 	"golang.org/x/crypto/ssh/terminal"
-	"otremblay.com/jkl"
 )
 
 type listissue jkl.JiraIssue

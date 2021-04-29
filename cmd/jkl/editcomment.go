@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 type EditCommentCmd struct {
@@ -41,13 +41,12 @@ func NewEditCommentCmd(args []string) (*EditCommentCmd, error) {
 
 func (e *EditCommentCmd) Run() error {
 
-
 	// Get Comment
 	comm, err := jkl.GetComment(e.issueKey, e.commentId)
 	if err != nil {
 		return err
 	}
-		b := bytes.NewBufferString(comm.Body)
+	b := bytes.NewBufferString(comm.Body)
 	var rdr io.Reader
 	if e.file != "" {
 		rdr, err = GetTextFromSpecifiedFile(e.file, b)

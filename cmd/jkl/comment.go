@@ -6,7 +6,7 @@ import (
 	"flag"
 	"io"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 )
 
 type CommentCmd struct {
