@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"otremblay.com/jkl"
+	"github.com/otremblay/jkl"
 
 	"github.com/hanwen/go-fuse/fuse"
 	"github.com/hanwen/go-fuse/fuse/nodefs"
@@ -30,11 +30,13 @@ func (j *jklfs) GetAttr(name string, context *fuse.Context) (*fuse.Attr, fuse.St
 			Mode: fuse.S_IFDIR | 0755,
 		}, fuse.OK
 	}
+
 	if _, ok := j.issuePerDirs[name]; ok {
 		return &fuse.Attr{
 			Mode: fuse.S_IFDIR | 0755,
 		}, fuse.OK
 	}
+
 	pathPieces := strings.Split(name, "/")
 	path := strings.Join(pathPieces[0:2], "/")
 	if i, ok := j.issuePerDirs[path]; ok {
@@ -44,6 +46,7 @@ func (j *jklfs) GetAttr(name string, context *fuse.Context) (*fuse.Attr, fuse.St
 			}, fuse.OK
 		}
 	}
+
 	return nil, fuse.ENOENT
 }
 
@@ -52,17 +55,20 @@ func (j *jklfs) OpenDir(name string, context *fuse.Context) (c []fuse.DirEntry, 
 		c = []fuse.DirEntry{{Name: "current_sprint", Mode: fuse.S_IFDIR}}
 		return c, fuse.OK
 	}
+
 	if name == "current_sprint" {
 		issues, err := jkl.List("sprint in openSprints() and project = 'DO'")
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			return nil, fuse.ENOENT
 		}
+
 		c = make([]fuse.DirEntry, len(issues))
 		for i, issue := range issues {
 			c[i] = fuse.DirEntry{Name: issue.Key, Mode: fuse.S_IFDIR}
 			j.issuePerDirs["current_sprint/"+issue.Key] = issue
 		}
+
 		return c, fuse.OK
 	}
 
@@ -82,6 +88,7 @@ func (j *jklfs) Open(name string, flags uint32, context *fuse.Context) (file nod
 			return nodefs.NewDataFile([]byte(i.Fields.Description)), fuse.OK
 		}
 	}
+
 	return nil, fuse.ENOENT
 }
 
@@ -90,10 +97,12 @@ func main() {
 	if len(flag.Args()) < 1 {
 		log.Fatal("Usage:\n  jklfs MOUNTPOINT")
 	}
+
 	nfs := pathfs.NewPathNodeFs(&jklfs{pathfs.NewDefaultFileSystem(), map[string]*jkl.JiraIssue{}}, nil)
 	server, _, err := nodefs.MountRoot(flag.Arg(0), nfs.Root(), nil)
 	if err != nil {
 		log.Fatalf("Mount fail: %v\n", err)
 	}
+
 	server.Serve()
 }
